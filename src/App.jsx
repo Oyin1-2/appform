@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import "./App.css";
 import LayOut from "./pages/LayOut";
-import Info from "./pages/info";
+import Info from "./pages/Info";
 //import Plan from "./pages/Plan";
 import AddOns from "./pages/AddOns";
 import Summary from "./pages/Summary";
