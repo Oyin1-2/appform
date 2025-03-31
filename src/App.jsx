@@ -6,12 +6,12 @@ import AddOns from "./pages/AddOns";
 import Summary from "./pages/Summary";
 import PageNotFound from "./pages/PageNotFound";
 import NextPage from "./pages/NextPage";
-
-
-
-
-import Plan from "./pages/plan";
 import Info from "./pages/info";
+import Plan from "./pages/plan";
+
+
+
+
 
 function App() {
   return (
@@ -19,8 +19,9 @@ function App() {
       <Routes>
         <Route path="/" element={<LayOut />}>
         
-          <Route path="Info" element={<Info />} />
-          <Route path="Plan" element={<Plan />} />
+        <Route path="info" element={<Info />} />
+
+          <Route path="plan" element={<Plan />} />
           <Route path="add-on" element={<AddOns />} />
           <Route path="summary" element={<Summary />} />
           <Route path="next-page" element={<NextPage />} />
