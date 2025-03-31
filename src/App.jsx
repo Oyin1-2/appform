@@ -8,8 +8,7 @@ import PageNotFound from "./pages/PageNotFound";
 import NextPage from "./pages/NextPage";
 
 
-import Plan from "./pages/plan";
-import Info from "./pages/info";
+
 
 function App() {
   return (
