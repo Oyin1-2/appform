@@ -7,6 +7,7 @@ import AddOns from "./pages/AddOns";
 import Summary from "./pages/Summary";
 import PageNotFound from "./pages/PageNotFound";
 import Plan from "./pages/plan";
+import NextPage from "./pages/NextPage";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
           <Route path="plan" element={<Plan />} />
           <Route path="add-on" element={<AddOns />} />
           <Route path="summary" element={<Summary />} />
+          <Route path="next-page" element={<NextPage />} />
+
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>

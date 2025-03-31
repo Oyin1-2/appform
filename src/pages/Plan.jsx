@@ -1,87 +1,111 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { motion } from "framer-motion";
 
 function Plan() {
+  // Start with monthly selected by default.
   const [isMonthly, setIsMonthly] = useState(true);
+  // Initialize selectedPlan as null to indicate nothing is selected.
   const [selectedPlan, setSelectedPlan] = useState(null);
   const navigate = useNavigate();
 
   const plans = [
-    { name: "Arcade", monthly: "$9/mo", yearly: "$90/yr", icon: "/images/lie.svg" },
-    { name: "Advanced", monthly: "$12/mo", yearly: "$120/yr", icon: "/images/consol.svg" },
-    { name: "Pro", monthly: "$15/mo", yearly: "$150/yr", icon: "/images/game.svg" }
+    {
+      name: "Arcade",
+      monthly: "$9/mo",
+      yearly: "$90/yr",
+      icon: "/images/lie.svg",
+    },
+    {
+      name: "Advanced",
+      monthly: "$12/mo",
+      yearly: "$120/yr",
+      icon: "/images/consol.svg",
+    },
+    {
+      name: "Pro",
+      monthly: "$15/mo",
+      yearly: "$150/yr",
+      icon: "/images/game.svg",
+    },
   ];
 
   function handleSubmit(e) {
     e.preventDefault();
-    
+    // Ensure a plan is selected
     if (selectedPlan !== null) {
-      navigate("/add-on");
+      // Pass selectedPlan and payment type as query parameters.
+      navigate(
+        `/next-page?plan=${selectedPlan}&payment=${isMonthly ? "monthly" : "yearly"}`
+      );
     } else {
       alert("Please select a plan before proceeding!");
     }
   }
 
-  console.log(plans)
-  
   return (
-    <div className="font-main p-6">
-      <h1 className="text-4xl text-blue font-bold">Select your plan</h1>
-      <p className="text-xl text-gray-500 mt-1">
-        You have the option of monthly or yearly billing.
+    <div className="font-main p-6 flex flex-col items-center text-white bg-gradient-to-br from-gray-900 to-black min-h-screen relative overflow-hidden ">
+      <h1 className="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+        Select Your Plan
+      </h1>
+      <p className="text-xl text-gray-400 mt-2">
+        Choose monthly or yearly billing.
       </p>
 
-      <div className="flex items-center justify-center mt-6">
-        <span className={`mr-2 font-medium ${isMonthly ? "text-black" : "text-gray-400"}`}>
-          Monthly
-        </span>
-        <button
+      {/* Toggle Switch */}
+      <div className="flex items-center justify-center mt-6 bg-gray-800 p-2 rounded-full shadow-md">
+        <motion.button
           type="button"
-          className="relative w-12 h-6 bg-blue-900 rounded-full transition duration-300"
+          className="relative w-16 h-8 bg-gray-600 rounded-full flex items-center p-1"
           onClick={() => setIsMonthly(!isMonthly)}
+          whileTap={{ scale: 0.9 }}
         >
-          <span
-            className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 ${
-              isMonthly ? "translate-x-0" : "translate-x-6"
-            }`}
-          ></span>
-        </button>
-        <span className={`ml-2 font-medium ${isMonthly ? "text-gray-400" : "text-black"}`}>
-          Yearly
-        </span>
+          <motion.span
+            className="w-6 h-6 bg-white rounded-full shadow-md"
+            animate={{ x: isMonthly ? 0 : 32 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          ></motion.span>
+        </motion.button>
       </div>
 
-      <div className="flex justify-between w-[90%] h-[30vh] mt-8 mx-auto">
+      {/* Plans Section */}
+      <div className="flex flex-wrap justify-center gap-6 mt-8">
         {plans.map((plan, index) => (
-          <div
+          <motion.div
             key={index}
-            className={`w-[28%] h-[100%] rounded-xl border border-gray-300 flex flex-col pl-6 pt-6 cursor-pointer transition-all duration-300 
-              ${selectedPlan === index ? "bg-gray-200 border-blue-500" : "bg-white"}`}
+            className={`w-64 h-72 bg-gray-800 bg-opacity-50 backdrop-blur-md rounded-2xl shadow-lg p-6 flex flex-col items-center cursor-pointer transition-all duration-500 border-2 relative overflow-hidden
+              ${selectedPlan === index ? "border-blue-500 shadow-blue-500/50 scale-105" : "border-transparent"}
+              hover:border-blue-400 hover:scale-105`}
             onClick={() => setSelectedPlan(index)}
           >
-            <img src={plan.icon} alt={plan.name} className="w-16 h-16 bg-red-500 rounded-full" />
-            <h1 className="text-2xl text-blue font-bold mt-4">{plan.name}</h1>
-            <p className="text-xl text-gray-500 mt-2">{isMonthly ? plan.monthly : plan.yearly}</p>
-          </div>
+            <img src={plan.icon} alt={plan.name} className="w-16 h-16 z-10" />
+            <h1 className="text-2xl font-bold mt-4 z-10">{plan.name}</h1>
+            <p className="text-lg text-white mt-2 z-10">
+              {isMonthly ? plan.monthly : plan.yearly}
+            </p>
+          </motion.div>
         ))}
       </div>
 
-      <div className="w-full flex justify-between mt-12">
-        <button 
-          type="button" 
-          onClick={() => navigate(-1)} 
-          className="border-[1px] border-black text-black px-8 rounded-xl py-3 cursor-pointer"
+      {/* Navigation Buttons */}
+      <div className="w-full flex justify-between mt-12 px-6">
+        <motion.button
+          type="button"
+          onClick={() => navigate(-1)}
+          className="border border-gray-500 text-gray-300 px-6 py-3 rounded-xl transition duration-300 hover:bg-gray-700 hover:text-white"
+          whileHover={{ scale: 1.05 }}
         >
           Go Back
-        </button>
+        </motion.button>
 
-        <button 
-          type="button" 
-          onClick={handleSubmit} 
-          className="bg-blue text-white px-8 rounded-xl py-3 cursor-pointer"
+        <motion.button
+          type="button"
+          onClick={handleSubmit}
+          className="bg-blue-500 text-white px-6 py-3 rounded-xl transition duration-300 hover:bg-blue-700"
+          whileHover={{ scale: 1.05 }}
         >
           Next Step
-        </button>
+        </motion.button>
       </div>
     </div>
   );
