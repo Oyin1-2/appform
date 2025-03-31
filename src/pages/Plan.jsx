@@ -3,9 +3,9 @@ import { useNavigate } from "react-router";
 import { motion } from "framer-motion";
 
 function Plan() {
-  // Start with monthly selected by default.
+ 
   const [isMonthly, setIsMonthly] = useState(true);
-  // Initialize selectedPlan as null to indicate nothing is selected.
+  
   const [selectedPlan, setSelectedPlan] = useState(null);
   const navigate = useNavigate();
 
